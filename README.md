@@ -33,14 +33,22 @@ Requires nightly rust to satisfy racer
 
 If errors are encountered building openssl or openssl-sys on MacOSX, that
 may be because you are running version 10.11 which dropped the system
-provided OpenSSL. The following commands should fix that issue.
+provided OpenSSL. Note that if the pkg-config call below fails, you can install
+openssl via homebrew.
+
+First, check that pkg-config knows about openssl. This command will be silent if
+openssl is available.
 
 ```sh
-# Will update to latest openssl available through homebrew
-brew install openssl
+pkg-config --print-errors openssl
+```
 
-# Set up symlinks for binaries, includes
-brew link --force openssl
+If necessary, run `brew install openssl`. The next snippet sets environment
+variables for use during racerd compilation.
+
+```sh
+export OPENSSL_LIB_DIR=$(pkg-config --variable=prefix openssl)/lib
+export OPENSSL_INCLUDE_DIR=$(pkg-config --variable=prefix openssl)/include
 ```
 
 [Documentation]: http://jwilm.github.io/racerd/libracerd/
