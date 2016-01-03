@@ -17,7 +17,7 @@ install:
   - rustc -Vv
   - cargo -Vv
   - SET RUST_SRC_PATH=%CD%\rustc-1.5.0\src
-  - call %VCVARS%
+  - if defined VCVARS call %VCVARS%
 
 build: false
 
