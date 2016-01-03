@@ -14,6 +14,7 @@ mod util;
 /// that the required environment variable is defined.
 const _RUST_SRC_PATH: &'static str = env!("RUST_SRC_PATH");
 
+#[not(cfg(windows))]
 #[test]
 #[should_panic]
 fn panics_when_invalid_secret_given() {
